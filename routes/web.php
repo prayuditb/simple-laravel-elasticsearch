@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('users', 'UsersController', ['except' => ['search']]);
+Route::post('/users/search', 'UsersController@search');
