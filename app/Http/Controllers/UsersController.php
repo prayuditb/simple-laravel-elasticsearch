@@ -34,8 +34,8 @@ class UsersController extends Controller
         $test = ES::type("user")->get();
         return response()->json([
             'status' => 'success',
-            'result' => $result->toArray(),
-            'test' => $test->toArray(),
+            'result_mysql' => $result->toArray(),
+            'result_es' => $test->toArray(),
         ]);
     }
 
@@ -87,8 +87,9 @@ class UsersController extends Controller
         $user->last_name = $request->last_name;
         $user->age = $request->age;
         $user->save();
+        dd($user);
 
-        $user_es = ES::type("user")->id($user->getKey())->update([
+        $user_es = ES::type("user")->id($id)->update([
             "first_name" => $user->first_name,
             "last_name" => $user->last_name,
             "age" => $user->age,
